@@ -88,12 +88,10 @@ function download_latest_files() {
     fi
 
     install_log "Downloading Nextcloud"
-    cd /tmp
+    cd $webroot_dir
     sudo wget https://download.nextcloud.com/server/releases/latest.zip
     sudo unzip latest.zip
     sudo rm latest.zip
-    sudo mkdir -p $install_dir
-    sudo mv /tmp/nextcloud $webroot_dir || install_error "Unable to move nextcloud to $webroot_dir"
 }
 
 # Sets files ownership in web root directory
@@ -129,7 +127,7 @@ function install_complete() {
     sudo shutdown -r now || install_error "Unable to execute shutdown"
 }
 
-function install() {
+function nextcloud_install() {
     display_welcome
     config_installation
     update_system_packages
